@@ -1,47 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ChessGPT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+    <title>ChessGPT Alpha 0.1</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<div class="background"></div>
+    <div class="background"></div>
 
-<header>
+    <header>
 
-<h1>♟ ChessGPT</h1>
+        <h1>♟ ChessGPT</h1>
 
-<p>Powered by GPT-5.5</p>
+        <p>Alpha 0.1 - Construyendo una IA desde cero</p>
 
-</header>
+    </header>
 
-<main>
+    <main>
 
-<div class="board" id="board"></div>
+        <!-- ===================== -->
+        <!-- TABLERO               -->
+        <!-- ===================== -->
 
-<div class="panel">
+        <section class="game">
 
-<h2>Nueva Partida</h2>
+            <div id="board" class="board"></div>
 
-<button>🤖 Contra IA</button>
+        </section>
 
-<button>👥 Dos jugadores</button>
+        <!-- ===================== -->
+        <!-- PANEL LATERAL         -->
+        <!-- ===================== -->
 
-<button>⚙ Configuración</button>
+        <aside class="sidebar">
 
-<button>🏆 Estadísticas</button>
+            <!-- Información de la IA -->
 
-</div>
+            <div class="card">
 
-</main>
+                <h2>🤖 ChessGPT</h2>
 
-<script src="script.js"></script>
+                <p><strong>Versión:</strong> Alpha 0.1</p>
+
+                <p><strong>Estado:</strong></p>
+
+                <span id="ia-status">
+                    Iniciando...
+                </span>
+
+            </div>
+
+            <!-- Chat -->
+
+            <div class="card chat">
+
+                <h2>Chat</h2>
+
+                <div id="chat-messages">
+
+                    <div class="bot">
+
+                        Hola 👋
+
+                        <br><br>
+
+                        Soy ChessGPT.
+
+                        <br>
+
+                        Estoy iniciando mi cerebro...
+
+                    </div>
+
+                </div>
+
+                <div class="chat-input">
+
+                    <input
+                        type="text"
+                        id="user-input"
+                        placeholder="Escribe un mensaje..."
+                        autocomplete="off"
+                    >
+
+                    <button id="send-btn">
+
+                        Enviar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Información del cerebro -->
+
+            <div class="card">
+
+                <h2>Cerebro</h2>
+
+                <p>
+
+                    Memoria:
+                    <span id="memory-size">
+
+                        0
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    Conocimientos:
+                    <span id="knowledge-size">
+
+                        0
+
+                    </span>
+
+                </p>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- ===================== -->
+    <!-- MOTOR DEL TABLERO     -->
+    <!-- ===================== -->
+
+    <script src="script.js"></script>
+
+    <!-- ===================== -->
+    <!-- IA                    -->
+    <!-- ===================== -->
+
+    <script src="ia/memoria.js"></script>
+
+    <script src="ia/conocimiento.js"></script>
+
+    <script src="ia/ia.js"></script>
+
+    <!-- ===================== -->
+    <!-- CHAT                  -->
+    <!-- ===================== -->
+
+    <script src="chat/chat.js"></script>
 
 </body>
+
 </html>
