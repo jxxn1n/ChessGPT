@@ -1,65 +1,163 @@
+// ==========================================
+// ChessGPT v0.1
+// script.js
+// ==========================================
+
+// ---------- TABLERO ----------
 
 const board = document.getElementById("board");
 
 const pieces = {
 
-r:"♜",
-n:"♞",
-b:"♝",
-q:"♛",
-k:"♚",
-p:"♟",
+    r:"♜",
+    n:"♞",
+    b:"♝",
+    q:"♛",
+    k:"♚",
+    p:"♟",
 
-R:"♖",
-N:"♘",
-B:"♗",
-Q:"♕",
-K:"♔",
-P:"♙"
+    R:"♖",
+    N:"♘",
+    B:"♗",
+    Q:"♕",
+    K:"♔",
+    P:"♙"
 
 };
 
-const position=[
+const position = [
 
-"rnbqkbnr",
-"pppppppp",
-"........",
-"........",
-"........",
-"........",
-"PPPPPPPP",
-"RNBQKBNR"
+    "rnbqkbnr",
+    "pppppppp",
+    "........",
+    "........",
+    "........",
+    "........",
+    "PPPPPPPP",
+    "RNBQKBNR"
 
 ];
 
-for(let row=0;row<8;row++){
+// Crear tablero
 
-for(let col=0;col<8;col++){
+function crearTablero(){
 
-const square=document.createElement("div");
+    board.innerHTML = "";
 
-square.classList.add("square");
+    for(let row = 0; row < 8; row++){
 
-if((row+col)%2==0){
+        for(let col = 0; col < 8; col++){
 
-square.classList.add("white");
+            const square = document.createElement("div");
 
-}else{
+            square.classList.add("square");
 
-square.classList.add("black");
+            if((row + col) % 2 === 0){
+
+                square.classList.add("white");
+
+            }else{
+
+                square.classList.add("black");
+
+            }
+
+            const piece = position[row][col];
+
+            if(piece !== "."){
+
+                square.textContent = pieces[piece];
+
+            }
+
+            board.appendChild(square);
+
+        }
+
+    }
 
 }
 
-const piece=position[row][col];
+crearTablero();
 
-if(piece!="."){
 
-square.textContent=pieces[piece];
+// ==========================================
+// CHAT
+// ==========================================
+
+const input = document.getElementById("user-input");
+const button = document.getElementById("send-btn");
+const messages = document.getElementById("chat-messages");
+
+button.addEventListener("click", enviarMensaje);
+
+input.addEventListener("keydown", function(event){
+
+    if(event.key === "Enter"){
+
+        enviarMensaje();
+
+    }
+
+});
+
+function enviarMensaje(){
+
+    const texto = input.value.trim();
+
+    if(texto === "") return;
+
+    agregarMensajeUsuario(texto);
+
+    input.value = "";
+
+    // Si todavía no existe la IA
+    if(typeof responderIA !== "function"){
+
+        agregarMensajeBot(
+            "Mi cerebro todavía no está instalado."
+        );
+
+        return;
+
+    }
+
+    const respuesta = responderIA(texto);
+
+    agregarMensajeBot(respuesta);
 
 }
 
-board.appendChild(square);
+function agregarMensajeUsuario(texto){
+
+    const div = document.createElement("div");
+
+    div.className = "user";
+
+    div.textContent = texto;
+
+    messages.appendChild(div);
+
+    bajarChat();
 
 }
+
+function agregarMensajeBot(texto){
+
+    const div = document.createElement("div");
+
+    div.className = "bot";
+
+    div.textContent = texto;
+
+    messages.appendChild(div);
+
+    bajarChat();
+
+}
+
+function bajarChat(){
+
+    messages.scrollTop = messages.scrollHeight;
 
 }
